@@ -1,0 +1,58 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    <h1> 列表任务</h1>
+
+    <div class="table-responsive">
+    <table class="table">
+    <thread>
+        <tr>
+            <th>名称</th>
+            <th>已完成</th>
+            <th>操作</th>
+        </tr>
+    </thread><br>
+
+    <tbody>
+
+            {% for todo in todos %}
+                <tr>
+                    <td>{{ todo.text }}</td>
+                    <td>{% if todo.completed %}
+                        已完成
+                    {% else %}
+                        未完成
+                    {% endif %}</td>
+
+                    {#                    <td>{{ todo.completed }}</td>#}
+                    <td>
+                        <form action="/task/delete/{{ todo.id }}/" method="post">
+
+                            <input type="submit" value="删除">
+                            {% csrf_token %}
+
+                        </form>
+{#                        <form action="/task/update/{{ todo.id }}/" method="post">#}
+                        <form action="{% url 'update' todo.id %}" method="post">
+
+                            <input type="submit" value="修改">
+                            {% csrf_token %}
+
+                        </form>
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+    </table>
+
+
+
+
+
+</div>
+
+{% endblock %}
+

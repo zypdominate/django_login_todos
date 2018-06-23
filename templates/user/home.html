@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    {{  user.username}}<br>
+    {{ user.is_authenticated }}<br>
+
+    <a href="/user/create">创建</a><br>
+    <a href="/user/logout">退出</a><br>
+
+
+
+    {% else %}
+
+    <ul>
+    <li><a href="/user/login">登录</a></li>
+{#    <li><a href="user/login"></a> 注册</li>#}
+
+    </ul>
+
+{% endif %}
+
+
+
+</body>
+</html>

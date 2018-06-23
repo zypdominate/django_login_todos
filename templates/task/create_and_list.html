@@ -1,0 +1,109 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+    <form action="/task/create/" method="post">
+        <input type="text" name="title">
+        <input type="submit" value="新建任务">
+        {% csrf_token %}
+    </form>
+
+    <h1> 列表任务</h1>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thread>
+                <tr>
+                    <th>名称</th>
+                    <th>已完成</th>
+                    <th>操作</th>
+                </tr>
+            </thread>
+            <br>
+
+
+            <tbody>
+            {% for todo in todos %}
+                <tr>
+                    <td>{{ todo.text }}</td>
+                    <td>{% if todo.completed %}
+                        OK
+                    {% else %}
+                        ing
+                    {% endif %}</td>
+                    {#                    <td>{{ todo.completed }}</td>#}
+                    <td>
+                        <div class="btn-group">
+                        <form action="/task/update/{{ todo.id }}/" method="post">
+
+                                <div class="form-actions">
+                                    <button type="submit" value="切换-->未完成 "
+                                            class="btn btn-primary">切换-->未完成</button>
+                                </div>
+                                {% csrf_token %}
+                        </form>
+
+                        <form action="/task/delete/{{ todo.id }}/" method="post">
+                                <div class="form-actions">
+                                    <button type="submit" value="删除 "
+                                            class="btn btn-primary">删除</button>
+                                </div>
+                                {% csrf_token %}
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thread>
+                <tr>
+                    <th>名称</th>
+                    <th>未完成</th>
+                    <th>操作</th>
+                </tr>
+            </thread>
+            <br>
+            <tbody>
+            {% for todo in todos_two %}
+                <tr>
+                    <td>{{ todo.text }}</td>
+                    <td>{% if todo.completed %}
+                        OK
+                    {% else %}
+                        ing
+                    {% endif %}</td>
+                    {#                    <td>{{ todo.completed }}</td>#}
+                    <td>
+
+                        <form action="/task/update/{{ todo.id }}/" method="post">
+                            <div class="form-actions">
+                                    <button type="submit" value=""
+                                            class="btn btn-primary">切换-->已完成</button>
+                            </div>
+                            <div class="btn-group">
+                                {% csrf_token %}
+                        </form>
+
+                        <form action="/task/delete/{{ todo.id }}/" method="post">
+                            <div class="form-actions">
+                                    <button type="submit" value="删除 "
+                                            class="btn btn-primary">删除</button>
+                                </div>
+                            {% csrf_token %}
+                        </form>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
+
+
